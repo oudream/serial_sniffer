@@ -1,0 +1,46 @@
+Begin3
+Title: Linux - Serial Sniffer         
+Version: 06OCT99      
+Entered-date: 06OCT99 
+Description: The Linux Serial Sniffer is a serial line monitor that watches
+             the bidirectional traffic over a single RS232 line, between
+             a foreign computer (Win98) and a "device under test", decodes the
+             traffic and saves it on a user defined disk file. Initial release
+             has one or two minor bugs (being worked on), and the program has
+             been tested up to and including 115200 baud (ttyS0/S1) and to
+             230400 baud rate (ttyR4/R5) on a Comtrol Rocket MultiPort Card.
+
+             Formatted output indicates the direction of the data, the
+             accululated number of bytes transferred in each direction, hex
+             and ASCII data display, and release 0.5 makes available
+             pluggable user defined filters for personal serial customising.
+
+             The Serial Sniffer can operate in two modes. Mode 1 - runs the
+             sniffer in a unobtrusive no delay mode  that monitors all traffic
+             via a two IC RS232 buffer circuit (Full wiring and doco included).
+             Mode 2 - runs by intercepting the transmission from the foreign
+             OS (Win98), reads it and retransmits it so that a user protocol
+             conversion or user protocol improvement can be seamlessly 
+             incorporated to open - closed manufacturing protocol approaches.
+
+             My initial development was required to help reverse engineer why
+             my Nikon E950 CoolPix camera didn't work too well with the current
+             GPhoto releases. (PS: Reverse Engineering is LEGAL in Australia).
+ 
+             Release 0.5 has additional functionality such as user definable
+             filters so that you can do a nice duplicate work like :
+             "sniffer | tee raw_file | std232 > cooked_file" which allows the
+             user to monitor cooked filtered serial activity at the same time
+             as saving the raw & cooked output to disk files.
+ 
+Keywords: serial sniffer       
+Author: gmkelly@zip.com.au (Grahame M. Kelly)         
+Maintained-by: gmkelly@zip.com.au (Grahame M. Kelly) 
+Primary-site: metalab.unc.edu /pub/Linux/apps/misc
+               46 kB   serial_sniffer-0.5.tar.gz
+                2 kB   serial_sniffer-0.5.lsm
+Alternate-site: 
+Original-site:  
+Platforms: Linux 2.2.0. GCC. Other POSIX compliant UNIX OS's.     
+Copying-policy: GPL
+End 

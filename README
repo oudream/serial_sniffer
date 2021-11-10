@@ -1,0 +1,122 @@
+/*
+	Copyright (c) 1999 Grahame M. Kelly (gmkelly@zip.com.au)
+
+	You may distribute and/or use for any purpose modified or unmodified
+	copies of this software if you preserve the copyright notice above.
+
+	THIS SOFTWARE IS PROVIDED AS IS AND COME WITH NO WARRANTY OF ANY
+	KIND, EITHER EXPRESSED OR IMPLIED.  IN NO EVENT WILL THE
+	COPYRIGHT HOLDER BE LIABLE FOR ANY DAMAGES RESULTING FROM THE
+	USE OF THIS SOFTWARE.
+*/
+
+
+You should have the following files when you untar the distribution:
+
+BCircuit.txt	Text file with all the wiring details disclosed.
+Makefile	Just type "make" to create the sniffer executable.
+README		This file your reading now.
+Sniffer.eps	PostScript copy of the wiring & concept diagrams.
+Sniffer.png	PNG copy of the wiring & concept diagrams (use GIMP to see).
+TODO		Future requirements I should undertake to improve system.
+sniffer.c	Source Code.
+sniffer.h	Source Header File.
+std232.c	Source Code of standard RS232 filter.
+std232		Executable rs232 filter.
+sniffer         Executable serial sniffer.
+ascii.flt	User Modifiable Filter data (plain txt file), used by std232.
+raw.file	Sample raw output from my Nikon E950 Camera.
+cooked.file	Sample cooked output from my Nikon E950 Camera.
+
+
+Serial Sniffer - README -
+
+I wrote this serial sniffer to help me reverse engineer (which is
+legal in Australia) my Nikon E950 CoolPix Digital Camera. I wanted to see why
+it would not correctly work with the Gphoto s/w. I particularly like the
+Gphoto developments and wanted to contribute to the Open Source Community.
+
+Serial Sniffer is a program that can operate in two modes.
+
+Type 1 Mode - 	The RS232 connections are buffered with the aid of
+		a two IC circuit ( 1 x 1488, 1 x 1489 IC) that take
+		the "load" off the camera which had a poor +/- 5v d.c.
+		RS232 swing. While this is OK in most cases I found
+		that when doubling up on RS232 inputs the swing 
+		deminished greatly. The circuit is simple and is
+		given in detail in the Sniffer.png file which you can
+		view using the GIMP. 
+
+				Snop Port A
+				Rd
+				|
+	Win98 Tx ---------------+-----------------------> Rd  Digital
+	      Rd <-----------------+--------------------- Tx  Camera	
+				   |
+				   Rd
+				Snop Port B
+
+
+Type 2 Mode -	The RS232 connection is served with a listen and forward
+		approach. i.e. The Snop ports read their input and
+		there after writes the read value back onto the RS232
+		line as the following diagram depicts.
+
+
+				Snop Port A
+				Rd	Tx
+				|	|
+	Win98 Tx ---------------+	+---------------> Rd  Digital
+	      Rd <--------------+	+---------------- Tx  Camera
+				|	|
+				Tx	Rd
+				Snop Port B
+
+
+Note: I have tested both approaches to Serial Sniffing. Each has its
+good and bad features. Type 1 - mode is the preferred mode as it does not
+force any i/o retransmission timing restraints on the equipment under test.
+Type 2 - mode is good if the timing restraints are not limiting and you
+want to make sure of the send and recieve transmission timing is resonabily
+track correctly. Which every mode you choose, its sometimes better to do
+both to double check your captured data, before committing "excess brain
+power" in decrypting the "unknown" protocol. Type 2 mode can also be use
+to "vary" the protocol messages if you wish to experiment further.
+
+Before you embark on your debugging efforts, I strongly suggest that you
+use a terminal emulation program like Linux - minicom, at the foreign Win98
+end, and simply loop back the "camera" end. Key a few characters and see
+the sequence of bytes returned by the format section of sniffer. This is
+especially important if you are going to intercede the protocol with your
+own adjustments as mentioned above. Once you see what you expect, then you
+can procede with confidence.
+
+You can try different Unix piping to get the best result you like. e.g.:
+
+"sniffer | tee > ./raw.file | std232 | tee > ./cooked.file"
+which will snif the RS232 port, put the raw data from sniffer in file: raw.file
+then puts this output thru the std232 filter to produce cooked data that is
+then saved to file cooked.file as well as being displayed on your console.
+
+"sniffer | std232 > ./cooked.file" is probably all you need to run for really
+simple serial data capture.
+
+If you wish to modify the std232 filter, or better still make your own then
+copy ascii.flt and modify it to suit your needs, copy std232.c to another file
+say "my232.c" modify the source line #define ASCII  "./ascii.flt" to read
+#define ASCII  "./ascii2.flt" where ./ascii2.flt is the name of the ascii.flt
+file you copied and modified above. Simple do a "make" and then you can do
+your own filtering as follows:
+
+"sniffer | my232 >./mycooked.file" to see your results.
+
+
+Finally, remember to set TYPE2 to TRUE as TYPE1 is set as the default,
+in the sniffer.h file, before doing a "make" which generates the sniffer
+executable.
+
+Happy reverse engineering (where it is legal) and enjoy.
+Cheers, Grahame.  (email gmkelly@zip.com.au  http://www.slug.org.au)
+Oct, 6th, 1999. 
+
+

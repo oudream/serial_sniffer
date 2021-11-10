@@ -1,0 +1,43 @@
+/*
+	Copyright (c) 1999 Grahame M. Kelly (gmkelly@zip.com.au)
+
+	You may distribute and/or use for any purpose modified or unmodified
+	copies of this software if you preserve the copyright notice above.
+
+	THIS SOFTWARE IS PROVIDED AS IS AND COME WITH NO WARRANTY OF ANY
+	KIND, EITHER EXPRESSED OR IMPLIED.  IN NO EVENT WILL THE
+	COPYRIGHT HOLDER BE LIABLE FOR ANY DAMAGES RESULTING FROM THE
+	USE OF THIS SOFTWARE.
+*/
+
+
+Date		Release		Comments
+----		-------		---------------------------------------------
+
+06/10/99	0.5		First Public Release (Debugged).
+20/08/99	0.0 -> 0.4	Inhouse development.
+
+
+
+TO DO & Wish List (Whenever I can get the time to do it).
+---------------------------------------------------------
+
+5.	
+
+4.      Make the command line usage to select the snif ports and the
+        output file name.
+
+3.	Fix up the file write to capture all piped user formatted data
+	correctly to the output file. (Completed in release 0.5)
+
+2.	Make the user_format section more flexible in its customisation
+	Possibly, allowing for the user to set their own character
+	recognition. (Completed in release 0.5)
+
+1.	Make the user_format and the piper process a "filter" so that
+	other filters can be applied in unix pipe fashion. This will
+	make the program more usefull and much more flexible for users.
+        (Completed in release 0.5)
+
+
+In closing, all comments and improvement suggestions greatly appreciated.

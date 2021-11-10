@@ -1,0 +1,65 @@
+Wiring List for the RS232 Buffered Driver System for
+the Serial Sniffer System - Type 1 Buffered Connection.
+
+GPL Copyright 1999 - Grahame M. Kelly (gmkelly@zip.com.au)
+
+
+IC 1 - Quad RS232 Driver - 1488 
+
+Pin	Function
+---	-------------------------------------------
+1	-Vcc (usually -5vdc to -15vdc)
+2	ICa input  (ttl)
+3	ICa ouput  (RS232)
+4	ICb input 1 (ttl) (join pin 4 & pin 5 together)
+5	ICb input 2 (ttl)
+6	ICb output (RS232)
+7	Ground
+8	ICc output (RS232)
+9	ICc input 1 (ttl) (join pin 9 & 10 together)
+10	ICc input 2 (ttl)
+11	ICd output (RS232)
+12	ICd input 1 (ttl) (join pin 13 & 12 together)
+13	ICd input 2 (ttl)
+14	+Vcc (usually +5vdc to +15vdc)	
+
+
+IC 2 - Quad RS232 Receiver - 1489
+
+Pin	Function
+---	-------------------------------------------
+1	ICa input (RS232)
+2	N/C (don't connect - leave floating)
+3	ICa output (ttl)
+4	ICb input (RS232)
+5	N/C
+6	ICb output (ttl)
+7	Ground
+8	ICc output (ttl)
+9	N/C
+10	ICc input (RS232)
+11	ICd output (ttl)
+12	N/C
+13	ICc input (RS232)
+14	+Vcc (+5vdc)
+
+
+Wire up the buffer as follows:
+
+IC 1 Pin 7 + IC 2 Pin 7 + RS232 Grounds (DB25-Pin 7, DB9-Pin 5)
+IC 1 Pin 1 goes to the Tx from the Win98 serial port (DB9 Pin 3)
+IC 1 Pin 3 connects to IC 2 pins 2, 4 & 5.
+IC 2 Pin 3 connects to the Snop Port A - Read (DB25F Pin 3)
+IC 2 Pin 6 connects to the Rd "Device under Test" input (DB9 Pin 2)
+
+IC 1 Pin 4 goes to the Tx from the "Device under Test" serial port (DB9 Pin 3).
+IC 1 Pin 6 connects to IC 2 pins 9, 10, 12 & 13.
+IC 2 Pin 8 connects to the Snop Port B - Read (DB25F Pin 3)
+IC 2 Pin 11 connects to the Rd for the Win98 serial port (DB9 Pin 2).
+
+IC 2 - Pin 14 connects to +5vdc
+IC 1 - Pin 14 connects to +12vdc
+IC 1 - Pin 1  connects to -12vdc
+
+
+ 
